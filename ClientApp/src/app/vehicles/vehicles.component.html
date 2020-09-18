@@ -1,0 +1,48 @@
+<a class="btn btn-primary mb-2" routerLink="/vehicles/new" >New Vehicle</a>
+<a class="btn btn-info mb-2 ml-2" routerLink="/chart" >Vehicle Chart</a>
+
+    <div class="form-group">
+        <label for="make">Make</label>
+        <select id="make" class="form-control" [(ngModel)]="query.makeId" (change)="onFilterChange()">
+            <option value=""></option>
+            <option *ngFor="let m of makes" value="{{m.id}}">{{m.name}}</option>
+        </select>
+    </div>
+    <div class="form-froup">
+        <label for="model">Mode</label>
+        <select id="model" class="form-control" [(ngModel)]="query.modelId" (change)="onModelChange()">
+            <option value=""></option>
+            <option *ngFor="let model of models" value={{model.id}}>{{model.name}}</option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-info mt-3 mb-3" (click)="reset()">Reset</button>
+
+<table class="table table-bordered">
+    <thead>
+        
+        <th>Id</th>
+        <th *ngFor="let c of columns" (click)="sortBy(c.key)" >
+            <div *ngIf="c.isSortable" >
+                {{c.title}}
+                <i *ngIf="query.sortBy === c.key " class="fa" 
+                [class.fa-sort-asc]="query.isSortingAscending"
+                [class.fa-sort-desc]="!query.isSortingAscending"
+                ></i>
+            </div>
+            <div *ngIf="!c.isSortable">
+                {{c.title}}
+            </div>
+        </th>
+        
+        
+    </thead>
+    <tbody>
+        <tr *ngFor="let vehicle of queryResult.items">
+            <td>{{vehicle.id}}</td>
+            <td>{{vehicle.make.name}}</td>
+            <td>{{vehicle.model.name}}</td>
+            <td>{{vehicle.contact.name}}</td>
+            <td><a routerLink="/vehicles/{{vehicle.id}}">View</a></td>
+        </tr>
+    </tbody>
+</table>
