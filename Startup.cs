@@ -31,7 +31,7 @@ namespace Vega
 
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
             
-            services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<VegaDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")));
             
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
